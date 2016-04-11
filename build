@@ -9,7 +9,7 @@ build() {
 	}
 
 	for file in $build_files; do
-		( # shellcheck source=versions/gliderlabs-3.2/options
+		( # shellcheck source=versions/library-3.3/options
 		source "$file"
 		local version_dir
 		version_dir="$(dirname "$file")"
