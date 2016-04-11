@@ -58,7 +58,7 @@ run_tests() {
 	declare build_files="${*:-versions/**/options}"
 	declare -a test_files
 	for file in $build_files; do
-		# shellcheck source=versions/gliderlabs-3.2/options
+		# shellcheck source=versions/library-3.3/options
 		source "$file"
 		local tag
 		tag="${TAGS[0]}" tag="${tag//:/-}" tag="${tag//\//_}"
@@ -73,7 +73,7 @@ push() {
 
 	declare build_files="${*:-versions/**/options}"
 	for file in $build_files; do
-		( #shellcheck source=versions/gliderlabs-3.2/options
+		( #shellcheck source=versions/library-3.3/options
 		source "$file"
 		for tag in "${TAGS[@]}"; do
 			if docker history "$tag" &> /dev/null; then
@@ -93,7 +93,7 @@ library() {
 		: "${refs:?}"
 		for tag in "${TAGS[@]}"; do
 			echo "${tag#*:}:" \
-				"git://github.com/gliderlabs/docker-alpine@${refs:0:40}" \
+				"git://github.com/troyfontaine/armhf-alpinelinux@${refs:0:40}" \
 				"versions/library-${RELEASE#v}"
 		done
 	done
