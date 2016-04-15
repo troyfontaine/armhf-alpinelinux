@@ -7,9 +7,9 @@ build() {
 		BUILDER_IMAGE="alpine-builder"
 		mkdir -p builder/qemu
 		[ -f builder/qemu/qemu-arm-static ] || \
-			( docker run --name=debian-qemu-user troyfontaine/container-maker || true;
-			docker cp troyfontaine/container-maker:/usr/bin/qemu-arm-static builder/qemu/qemu-arm-static;
-			docker rm troyfontaine/container-maker )
+			( docker run --name=container-maker troyfontaine/container-maker || true;
+			docker cp container-maker:/usr/bin/qemu-arm-static builder/qemu/qemu-arm-static;
+			docker rm container-maker )
 		docker build -t "$BUILDER_IMAGE" builder
 	}
 
