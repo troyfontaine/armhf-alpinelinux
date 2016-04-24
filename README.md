@@ -7,11 +7,11 @@
 
 
 
-A super small Docker image based on [Alpine Linux][alpine]. The image is only 5 MB and has access to a package repository that is much more complete than other BusyBox based images.
+A super small Docker image based on [Alpine Linux][alpine]. The image is only 5 MB and has access to a package repository that is much more complete than other BusyBox based images.  Included in this version is a qemu binary that allows the container when created on an ARM device to run on an x86/x86_64
 
 ## How to build for ARMHF?
 
-You can use this repo directly on a Raspberry Pi to create an ARMHF Alpine Image.
+You can use this repo directly on a Raspberry Pi to create an ARMHF-compatible Alpine Image that can run on other platforms.
 
 ## Why?
 
@@ -74,7 +74,7 @@ This image is well documented. [Check out the documentation at Viewdocs][docs] a
 
 ## Contacts
 
-We make reasonable efforts to support our work and are always happy to chat. Join us in [our Slack community][slack] or [submit a GitHub issue][issues] if you have a security or other general question about this Docker image. Please email [security](http://lists.alpinelinux.org/alpine-security/summary.html) or [user](http://lists.alpinelinux.org/alpine-user/summary.html) mailing lists if you have concerns specific to Alpine Linux.
+We make reasonable efforts to support our work and are always happy to chat.  Got a problem? [Submit a GitHub issue][issues] if you have a security or other general question about this Docker image. Please email [security](http://lists.alpinelinux.org/alpine-security/summary.html) or [user](http://lists.alpinelinux.org/alpine-user/summary.html) mailing lists if you have concerns specific to Alpine Linux.
 
 ## Inspiration
 
@@ -88,8 +88,6 @@ The code in this repository, unless otherwise noted, is BSD licensed. See the `L
 [alpine-packages]: http://pkgs.alpinelinux.org/
 [alpine-about]: https://www.alpinelinux.org/about/
 [docs]: http://gliderlabs.viewdocs.io/docker-alpine
-[slack]: http://glider-slackin.herokuapp.com/
-[issues]: https://github.com/gliderlabs/docker-alpine/issues
+[issues]: https://github.com/troyfontaine/armhf-alpinelinux/issues
 [alpine]: http://alpinelinux.org/
-[fastly]: https://www.fastly.com/
-[hub]: https://hub.docker.com/r/gliderlabs/alpine/
+[hub]: https://hub.docker.com/r/troyfontaine/armhf-alpinelinux/
