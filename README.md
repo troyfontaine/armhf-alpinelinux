@@ -4,8 +4,8 @@
 [![Docker Stars](https://img.shields.io/docker/stars/troyfontaine/armhf-alpinelinux.svg)][hub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/troyfontaine/armhf-alpinelinux.svg)][hub]
 [![Slack](http://glider-slackin.herokuapp.com/badge.svg)][slack]
-[![Image Size](https://img.shields.io/imagelayers/image-size/troyfontaine/armhf-alpinelinux/latest.svg)](https://imagelayers.io/?images=troyfontaine/armhf-alpinelinux:latest)
-[![Image Layers](https://img.shields.io/imagelayers/layers/troyfontaine/armhf-alpinelinux/latest.svg)](https://imagelayers.io/?images=troyfontaine/armhf-alpinelinux:latest)
+[![](https://imagelayers.io/badge/troyfontaine/armhf-alpinelinux:latest.svg)](https://imagelayers.io/?images=troyfontaine/armhf-alpinelinux:latest 'Get your own badge on imagelayers.io')
+
 
 
 A super small Docker image based on [Alpine Linux][alpine]. The image is only 5 MB and has access to a package repository that is much more complete than other BusyBox based images.
