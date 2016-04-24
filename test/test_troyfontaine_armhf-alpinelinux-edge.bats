@@ -27,8 +27,8 @@ setup() {
 @test "repository list is correct" {
   run docker run "troyfontaine/armhf-alpinelinux:edge" cat /etc/apk/repositories
   [ $status -eq 0 ]
-  [ "${lines[0]}" = "http://alpine.gliderlabs.com/alpine/edge/main" ]
-  [ "${lines[1]}" = "http://alpine.gliderlabs.com/alpine/edge/community" ]
+  [ "${lines[0]}" = "http://nl.alpinelinux.org/alpine/edge/main" ]
+  [ "${lines[1]}" = "http://nl.alpinelinux.org/alpine/edge/community" ]
   [ "${lines[2]}" = "" ]
 }
 

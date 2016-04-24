@@ -53,11 +53,11 @@ build() {
 
 	[[ "$ADD_APK_SCRIPT" ]] && cp /apk-install "$rootfs/usr/sbin/apk-install"
 	
-#	# qemu
-#	{
-#		mkdir -p "$rootfs/usr/bin"
-#		cp /usr/bin/qemu-arm-static $rootfs/usr/bin/
-#	}
+	# qemu
+	{
+		mkdir -p "$rootfs/usr/bin"
+		cp /usr/bin/qemu-arm-static $rootfs/usr/bin/
+	}
 	
 	# save
 	tar -z -f rootfs.tar.gz --numeric-owner -C "$rootfs" -c .

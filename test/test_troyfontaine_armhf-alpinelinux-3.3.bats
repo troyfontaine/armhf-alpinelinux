@@ -27,8 +27,8 @@ setup() {
 @test "repository list is correct" {
   run docker run troyfontaine/armhf-alpinelinux:3.3 cat /etc/apk/repositories
   [ $status -eq 0 ]
-  [ "${lines[0]}" = "http://alpine.gliderlabs.com/alpine/v3.3/main" ]
-  [ "${lines[1]}" = "http://alpine.gliderlabs.com/alpine/v3.3/community" ]
+  [ "${lines[0]}" = "http://nl.alpinelinux.org/alpine/v3.3/main" ]
+  [ "${lines[1]}" = "http://nl.alpinelinux.org/alpine/v3.3/community" ]
   [ "${lines[2]}" = "" ]
 }
 

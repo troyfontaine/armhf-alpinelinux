@@ -1,11 +1,11 @@
 # docker-alpine
 
-[![CircleCI](https://img.shields.io/circleci/project/gliderlabs/docker-alpine/release.svg)](https://circleci.com/gh/gliderlabs/docker-alpine)
-[![Docker Stars](https://img.shields.io/docker/stars/gliderlabs/alpine.svg)][hub]
-[![Docker Pulls](https://img.shields.io/docker/pulls/gliderlabs/alpine.svg)][hub]
+[![CircleCI](https://img.shields.io/circleci/project/troyfontaine/armhf-alpinelinux/release.svg)](https://circleci.com/gh/troyfontaine/armhf-alpinelinux)
+[![Docker Stars](https://img.shields.io/docker/stars/troyfontaine/armhf-alpinelinux.svg)][hub]
+[![Docker Pulls](https://img.shields.io/docker/pulls/troyfontaine/armhf-alpinelinux.svg)][hub]
 [![Slack](http://glider-slackin.herokuapp.com/badge.svg)][slack]
-[![Image Size](https://img.shields.io/imagelayers/image-size/gliderlabs/alpine/latest.svg)](https://imagelayers.io/?images=gliderlabs/alpine:latest)
-[![Image Layers](https://img.shields.io/imagelayers/layers/gliderlabs/alpine/latest.svg)](https://imagelayers.io/?images=gliderlabs/alpine:latest)
+[![Image Size](https://img.shields.io/imagelayers/image-size/troyfontaine/armhf-alpinelinux/latest.svg)](https://imagelayers.io/?images=troyfontaine/armhf-alpinelinux:latest)
+[![Image Layers](https://img.shields.io/imagelayers/layers/troyfontaine/armhf-alpinelinux/latest.svg)](https://imagelayers.io/?images=troyfontaine/armhf-alpinelinux:latest)
 
 
 A super small Docker image based on [Alpine Linux][alpine]. The image is only 5 MB and has access to a package repository that is much more complete than other BusyBox based images.
