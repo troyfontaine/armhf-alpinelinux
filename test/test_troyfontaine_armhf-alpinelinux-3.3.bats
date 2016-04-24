@@ -9,7 +9,7 @@ setup() {
 }
 
 @test "package installs cleanly" {
-  run docker run troyfontaine/armhf-alpinelinux:3.3 apk add --update openssl
+  run docker run troyfontaine/armhf-alpinelinux:3.3 apk add --no-cache openssl
   [ $status -eq 0 ]
 }
 
