@@ -5,16 +5,11 @@ build() {
 
 	[[ "$BUILDER_IMAGE" ]] || {
 		BUILDER_IMAGE="alpine-builder"
-		mkdir -p builder/qemu
-		[ -f builder/qemu/qemu-arm-static ] || \
-			( docker run --name=container-maker troyfontaine/container-maker || true;
-			docker cp container-maker:/usr/bin/qemu-arm-static builder/qemu/qemu-arm-static;
-			docker rm container-maker )
 		docker build -t "$BUILDER_IMAGE" builder
 	}
 
 	for file in $build_files; do
-		( # shellcheck source=versions/gliderlabs-3.2/options
+		( # shellcheck source=versions/stock-3.3/options
 		source "$file"
 		local version_dir
 		version_dir="$(dirname "$file")"
