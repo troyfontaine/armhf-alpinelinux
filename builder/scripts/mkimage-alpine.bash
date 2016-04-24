@@ -7,6 +7,7 @@
 
 declare REL="${REL:-edge}"
 declare MIRROR="${MIRROR:-http://nl.alpinelinux.org/alpine}"
+declare ARCH="${ARCH:-main}"
 
 set -eo pipefail; [[ "$TRACE" ]] && set -x
 
@@ -27,10 +28,10 @@ build() {
 	# conf
 	mkdir -p "$rootfs/etc/apk"
 	{
-		echo "$mirror/$rel/main"
-		[[ "$OMIT_COMMUNITY" ]] || echo "$mirror/$rel/community"
+		echo "$mirror/$rel/"
+		#[[ "$OMIT_COMMUNITY" ]] || echo "$mirror/$rel/community"
 		[[ "$REPO_EXTRA" ]] && {
-			[[ "$rel" == "edge" ]] || echo "@edge $mirror/edge/main"
+			[[ "$rel" == "edge" ]] || echo "@edge $mirror/edge/"
 			echo "@testing $mirror/edge/testing"
 		}
 	} > "$rootfs/etc/apk/repositories"
@@ -51,7 +52,13 @@ build() {
 	} >&2
 
 	[[ "$ADD_APK_SCRIPT" ]] && cp /apk-install "$rootfs/usr/sbin/apk-install"
-
+	
+#	# qemu
+#	{
+#		mkdir -p "$rootfs/usr/bin"
+#		cp /usr/bin/qemu-arm-static $rootfs/usr/bin/
+#	}
+	
 	# save
 	tar -z -f rootfs.tar.gz --numeric-owner -C "$rootfs" -c .
 	[[ "$STDOUT" ]] && cat rootfs.tar.gz

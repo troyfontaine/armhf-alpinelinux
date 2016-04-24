@@ -40,7 +40,3 @@ test:
         parallel: true
         files:
           - versions/**/options
-    - ./build commit:
-        parallel: true
-        files:
-          - versions/**/options
