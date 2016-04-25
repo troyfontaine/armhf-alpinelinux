@@ -1,9 +1,9 @@
 # armhf-alpinelinux
 
+[![](https://imagelayers.io/badge/troyfontaine/armhf-alpinelinux:latest.svg)](https://imagelayers.io/?images=troyfontaine/armhf-alpinelinux:latest 'Get your own badge on imagelayers.io')
 [![CircleCI](https://img.shields.io/circleci/project/troyfontaine/armhf-alpinelinux/release.svg)](https://circleci.com/gh/troyfontaine/armhf-alpinelinux)
-[![Docker Stars](https://img.shields.io/docker/stars/troyfontaine/armhf-alpinelinux.svg)][hub]
-[![Docker Pulls](https://img.shields.io/docker/pulls/troyfontaine/armhf-alpinelinux.svg)][hub]
-[![ImageLayers](https://imagelayers.io/badge/troyfontaine/armhf-alpinelinux:latest.svg)](https://imagelayers.io/?images=troyfontaine/armhf-alpinelinux:latest)
+[![Docker Stars](https://img.shields.io/docker/stars/troyfontaine/armhf-alpinelinux.svg)]()
+[![Docker Pulls](https://img.shields.io/docker/pulls/troyfontaine/armhf-alpinelinux.svg)]()
 
 
 
