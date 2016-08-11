@@ -1,6 +1,5 @@
 # armhf-alpinelinux
 
-[![](https://imagelayers.io/badge/troyfontaine/armhf-alpinelinux:latest.svg)](https://imagelayers.io/?images=troyfontaine/armhf-alpinelinux:latest 'Get your own badge on imagelayers.io')
 [![CircleCI](https://img.shields.io/circleci/project/troyfontaine/armhf-alpinelinux/release.svg)](https://circleci.com/gh/troyfontaine/armhf-alpinelinux)
 [![Docker Stars](https://img.shields.io/docker/stars/troyfontaine/armhf-alpinelinux.svg)]()
 [![Docker Pulls](https://img.shields.io/docker/pulls/troyfontaine/armhf-alpinelinux.svg)]()
@@ -11,7 +10,7 @@ A super small Docker image based on [Alpine Linux][alpine]. The image is only 5 
 
 ## How to build for ARMHF?
 
-You can use this repo directly on a Raspberry Pi to create an ARMHF-compatible Alpine Image that can run on other platforms.
+You can use this repo directly on a Raspberry Pi to create an ARMHF-compatible Alpine Image that can run on other platforms.  The "special sauce" is the qemu-arm-static binary copied to /usr/bin/ in the Dockerfile for each version.
 
 ## Why?
 
@@ -68,14 +67,6 @@ ENTRYPOINT ["mysql"]
 
 Only 3 seconds to build and results in a 36 MB image! Hooray!
 
-## Documentation
-
-This image is well documented. [Check out the documentation at Viewdocs][docs] and the `docs` directory in this repository.
-
-## Contacts
-
-We make reasonable efforts to support our work and are always happy to chat.  Got a problem? [Submit a GitHub issue][issues] if you have a security or other general question about this Docker image. Please email [security](http://lists.alpinelinux.org/alpine-security/summary.html) or [user](http://lists.alpinelinux.org/alpine-user/summary.html) mailing lists if you have concerns specific to Alpine Linux.
-
 ## Inspiration
 
 The motivation for this project and modifications to `mkimage.sh` are highly inspired by Eivind Uggedal (uggedal) and Luis Lavena (luislavena). They have made great strides in getting Alpine Linux running as a Docker container. Check out their [mini-container/base][mini-base] image as well.
@@ -83,11 +74,3 @@ The motivation for this project and modifications to `mkimage.sh` are highly ins
 ## License
 
 The code in this repository, unless otherwise noted, is BSD licensed. See the `LICENSE` file in this repository.
-
-[mini-base]: https://github.com/mini-containers/base
-[alpine-packages]: http://pkgs.alpinelinux.org/
-[alpine-about]: https://www.alpinelinux.org/about/
-[docs]: http://gliderlabs.viewdocs.io/docker-alpine
-[issues]: https://github.com/troyfontaine/armhf-alpinelinux/issues
-[alpine]: http://alpinelinux.org/
-[hub]: https://hub.docker.com/r/troyfontaine/armhf-alpinelinux/
