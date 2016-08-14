@@ -3,7 +3,7 @@
 [![CircleCI](https://img.shields.io/circleci/project/troyfontaine/armhf-alpinelinux/release.svg)](https://circleci.com/gh/troyfontaine/armhf-alpinelinux)
 [![Docker Stars](https://img.shields.io/docker/stars/troyfontaine/armhf-alpinelinux.svg)]()
 [![Docker Pulls](https://img.shields.io/docker/pulls/troyfontaine/armhf-alpinelinux.svg)]()
-
+[![](https://images.microbadger.com/badges/version/troyfontaine/armhf-alpinelinux.svg)](http://microbadger.com/images/troyfontaine/armhf-alpinelinux "Get your own version badge on microbadger.com")
 
 
 A super small Docker image based on [Alpine Linux][alpine]. The image is only 5 MB and has access to a package repository that is much more complete than other BusyBox based images.  Included in this version is a qemu binary that allows the container when created on an ARM device to run on an x86/x86_64
@@ -74,3 +74,5 @@ The motivation for this project and modifications to `mkimage.sh` are highly ins
 ## License
 
 The code in this repository, unless otherwise noted, is BSD licensed. See the `LICENSE` file in this repository.
+
+[alpine]: http://alpinelinux.org/
