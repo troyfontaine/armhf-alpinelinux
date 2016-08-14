@@ -6,7 +6,7 @@
 [![](https://images.microbadger.com/badges/version/troyfontaine/armhf-alpinelinux.svg)](http://microbadger.com/images/troyfontaine/armhf-alpinelinux "Get your own version badge on microbadger.com")
 
 
-A super small Docker image based on [Alpine Linux][alpine]. The image is only 5 MB and has access to a package repository that is much more complete than other BusyBox based images.  Included in this version is a qemu binary that allows the container when created on an ARM device to run on an x86/x86_64
+A super small Docker image based on [Alpine Linux][alpine]. Forked from [Glider Labs Alpine Image][gliderlabs]The image is less than 5 MB and has access to a package repository that is much more complete than other BusyBox based images.  Included in this version is a qemu binary that allows the container when created on an ARM device to run on an x86/x86_64 system (with the exception of Boot2Docker it seems in testing).
 
 ## How to build for ARMHF?
 
@@ -76,3 +76,4 @@ The motivation for this project and modifications to `mkimage.sh` are highly ins
 The code in this repository, unless otherwise noted, is BSD licensed. See the `LICENSE` file in this repository.
 
 [alpine]: http://alpinelinux.org/
+[gliderlabs]: http://github.com/gliderlabs/docker-alpine
