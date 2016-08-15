@@ -1,3 +1,3 @@
 FROM scratch
+MAINTAINER Troy Fontaine
 ADD rootfs.tar.gz /
-ADD qemu-arm-static.tar.gz /usr/bin/

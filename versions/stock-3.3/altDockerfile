@@ -1,0 +1,22 @@
+############################################################
+# Dockerfile to build ARMhf Alpine Linux Images
+# Alpine Linux v3.3
+############################################################
+
+ARG VCS_REF
+
+ARG ALPINE_VER
+
+ARG BUILD_DATE
+
+FROM scratch
+
+MAINTAINER Troy Fontaine
+
+LABEL com.troyfontaine.image-specs="{\"architecture\":\"ARMv7\",\"org.label-schema.description\":\"Alpine Linux for ARMHF (ARM v7l)\",\"org.label-schema.build-date\":\"$BUILD_DATE\",\"org.label-schema.vcs-url\":\"https:\/\/github.com\/troyfontaine\/armhf-alpinelinux\",\"org.label-schema.vcs-ref\":\"$VCS_REF\",\"org.label-schema.docker.cmd\":\"docker run --rm troyfontaine\\/armhf-alpinelinux:3.3 [args]\",\"License\":\"BSD\",\"Alpine_Version\":\"$ALPINE_VER\",\"vcs-ref\":}"
+
+# Copy file system to image
+ADD rootfs.tar.gz /
+
+#
+ADD qemu-arm-static.tar.gz /usr/bin/
