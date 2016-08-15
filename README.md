@@ -4,6 +4,8 @@
 [![Docker Stars](https://img.shields.io/docker/stars/troyfontaine/armhf-alpinelinux.svg)]()
 [![Docker Pulls](https://img.shields.io/docker/pulls/troyfontaine/armhf-alpinelinux.svg)]()
 [![](https://images.microbadger.com/badges/version/troyfontaine/armhf-alpinelinux.svg)](http://microbadger.com/images/troyfontaine/armhf-alpinelinux "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/troyfontaine/armhf-alpinelinux.svg)](http://microbadger.com/images/troyfontaine/armhf-alpinelinux "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/commit/troyfontaine/armhf-alpinelinux.svg)](http://microbadger.com/images/troyfontaine/armhf-alpinelinux "Get your own commit badge on microbadger.com")
 
 
 A super small Docker image based on [Alpine Linux][alpine]. Forked from [Glider Labs Alpine Image][gliderlabs].  The image is less than 5 MB and has access to a package repository that is much more complete than other BusyBox based images.  Included in this version is a qemu binary that allows the container when created on an ARM device to run on an x86/x86_64 system (with the exception of Boot2Docker it seems in testing).
