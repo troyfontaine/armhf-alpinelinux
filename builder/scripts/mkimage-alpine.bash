@@ -15,7 +15,7 @@ set -eo pipefail; [[ "$TRACE" ]] && set -x
 }
 
 usage() {
-	printf >&2 '%s: [-r release] [-m mirror] [-s] [-E] [-e] [-c] [-d] [-t timezone] [-p packages] [-b]\n' "$0" && exit 1
+	printf >&2 '%s: [-r release] [-m mirror] [-s] [-E] [-e] [-c] [-q] [-d] [-t timezone] [-p packages] [-b]\n' "$0" && exit 1
 }
 
 build() {
@@ -62,7 +62,7 @@ build() {
 }
 
 main() {
-	while getopts "hr:m:t:sEecdp:b" opt; do
+	while getopts "hr:m:t:sEecqdp:b" opt; do
 		case $opt in
 			r) REL="$OPTARG";;
 			m) MIRROR="${OPTARG%/}";;
