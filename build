@@ -19,6 +19,7 @@ build() {
 
 		for tag in "${TAGS[@]}"; do
 			docker build -t "$tag" \
+			--build-arg ALPINE_VERSION=${RELEASE} \
 			--build-arg VCS_REF=`git rev-parse --short HEAD` \
 			--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 			"$version_dir"
