@@ -71,6 +71,7 @@ main() {
 			e) REPO_EXTRA=1;;
 			t) TIMEZONE="$OPTARG";;
 			c) ADD_APK_SCRIPT=1;;
+            q) ADD_QEMU_BINARY=1;;
 			p) PACKAGES="$OPTARG";;
 			b) ADD_BASELAYOUT=1;;
 			d) DISABLE_ROOT_PASSWD=1;;
