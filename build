@@ -18,7 +18,12 @@ build() {
 			> "$version_dir/rootfs.tar.gz"
 
 		for tag in "${TAGS[@]}"; do
-			docker build -t "$tag" "$version_dir"
+			docker build -t "$tag" \
+			--build-arg ALPINE_VERSION=${RELEASE} \
+			--build-arg VCS_REF=`git rev-parse --short HEAD` \
+			--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+			--build-arg VERSION=`date -u +"%Y.%m.%d.T%H:%MZ"` \
+			"$version_dir"
 			if [[ "$CIRCLE_BUILD_NUM" ]]; then
 				{
 					mkdir -p images \
