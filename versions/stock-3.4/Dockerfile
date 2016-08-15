@@ -14,7 +14,7 @@ MAINTAINER Troy Fontaine
         org.label-schema.vcs-type="Git" \
         org.label-schema.vcs-url="https://github.com/troyfontaine/armhf-alpinelinux" \
         org.label-schema.docker.cmd="docker run --rm troyfontaine\\/armhf-alpinelinux:3.4 [args]" \
-        org.label-schema.version = “dirty” \
+        org.label-schema.version=“dirty” \
         com.troyfontaine.architecture="ARMv7l"
 
 ADD rootfs.tar.gz /
