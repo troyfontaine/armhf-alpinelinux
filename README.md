@@ -1,6 +1,5 @@
 # armhf-alpinelinux
 
-[![CircleCI](https://img.shields.io/circleci/project/troyfontaine/armhf-alpinelinux/release.svg)](https://circleci.com/gh/troyfontaine/armhf-alpinelinux)
 [![Docker Stars](https://img.shields.io/docker/stars/troyfontaine/armhf-alpinelinux.svg)]()
 [![Docker Pulls](https://img.shields.io/docker/pulls/troyfontaine/armhf-alpinelinux.svg)]()
 [![](https://images.microbadger.com/badges/version/troyfontaine/armhf-alpinelinux.svg)](http://microbadger.com/images/troyfontaine/armhf-alpinelinux "Get your own version badge on microbadger.com")
