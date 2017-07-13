@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # This mkimage-alpine.sh is a modified version from
 # https://github.com/docker/docker/blob/master/contrib/mkimage-alpine.sh.
