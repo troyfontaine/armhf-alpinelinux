@@ -3,6 +3,11 @@
 build() {
 	declare build_files="${*:-versions/**/options}"
 
+    [[ "$BUILD_IMAGE" ]] || {
+		BUILD_IMAGE="alpine-build"
+		docker build -t "$BUILD_IMAGE" builder/basebuilder
+	}
+
 	[[ "$BUILDER_IMAGE" ]] || {
 		BUILDER_IMAGE="alpine-builder"
 		docker build -t "$BUILDER_IMAGE" builder
