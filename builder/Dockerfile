@@ -10,7 +10,7 @@ RUN [ "qemu-arm-static", "/bin/sh", "-c", "ln -s resin-xbuild /usr/bin/cross-bui
 
 # wrap the environment with qemu allowing building on x86_64 computer
 RUN [ "cross-build-start" ]
-COPY scripts/mkimage-alpine.bash scripts/apk-install
+COPY scripts/mkimage-alpine.bash scripts/apk-install /
 RUN /apk-install bash tzdata
 
 RUN [ "cross-build-end" ]
