@@ -21,6 +21,7 @@ dependencies:
     - sudo bats-0.4.0/install.sh /usr/local
   override:
     - docker info
+    - docker run --rm --privileged multiarch/qemu-user-static:register --reset
     - ./build:
         parallel: true
         files:
