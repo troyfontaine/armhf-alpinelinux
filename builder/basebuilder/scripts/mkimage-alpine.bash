@@ -18,6 +18,8 @@ usage() {
 	printf >&2 '%s: [-r release] [-m mirror] [-s] [-E] [-e] [-c] [-d] [-t timezone] [-p packages] [-b]\n' "$0" && exit 1
 }
 
+# THIS NEEDS TO BE CONVERTED - build the rootfs in a multi-stage build
+# https://blog.alexellis.io/mutli-stage-docker-builds/?mkt_tok=eyJpIjoiWVdObVlUZ3lNV00yTlRneSIsInQiOiJEWTRKY3pWSitaR21zWStSTnhKOTFtakFvdDdlaXBsNkpVbndhWUZIRzBCVE0rM3FqTVJ6MW1aOFZmQ0Z1QTNubDFHNk5uR3lId1BcL2xsTnRoT2kzVVl0NXNLTmNCTTdUXC9nRXprd2RacU5vNzNQcGZPK0RQbklFZks1TWpZVXZZIn0%3D
 build() {
 	declare mirror="$1" rel="$2" packages=("${3:-alpine-base}")
 
