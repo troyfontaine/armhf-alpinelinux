@@ -1,3 +1,2 @@
 /images
 /versions/**/rootfs.tar.gz
-/builder/qemu
