@@ -52,7 +52,7 @@ build() {
 
 	[[ "$ADD_APK_SCRIPT" ]] && cp /apk-install "$rootfs/usr/sbin/apk-install"
 
-	[[ "$ADD_QEMU_BINARY" ]] && cp /qemu-arm-static "$rootfs/usr/bin/qemu-arm-static"
+	#[[ "$ADD_QEMU_BINARY" ]] && cp /qemu-arm-static "$rootfs/usr/bin/qemu-arm-static"
 
 	# save
 	tar -z -f rootfs.tar.gz --numeric-owner -C "$rootfs" -c .
@@ -71,7 +71,7 @@ main() {
 			e) REPO_EXTRA=1;;
 			t) TIMEZONE="$OPTARG";;
 			c) ADD_APK_SCRIPT=1;;
-            q) ADD_QEMU_BINARY=1;;
+            #q) ADD_QEMU_BINARY=1;;
 			p) PACKAGES="$OPTARG";;
 			b) ADD_BASELAYOUT=1;;
 			d) DISABLE_ROOT_PASSWD=1;;
