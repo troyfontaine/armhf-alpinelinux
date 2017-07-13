@@ -15,7 +15,7 @@ set -eo pipefail; [[ "$TRACE" ]] && set -x
 }
 
 usage() {
-	printf >&2 '%s: [-r release] [-m mirror] [-s] [-E] [-e] [-c] [-q] [-d] [-t timezone] [-p packages] [-b]\n' "$0" && exit 1
+	printf >&2 '%s: [-r release] [-m mirror] [-s] [-E] [-e] [-c] [-d] [-t timezone] [-p packages] [-b]\n' "$0" && exit 1
 }
 
 build() {
@@ -52,8 +52,6 @@ build() {
 
 	[[ "$ADD_APK_SCRIPT" ]] && cp /apk-install "$rootfs/usr/sbin/apk-install"
 
-	#[[ "$ADD_QEMU_BINARY" ]] && cp /qemu-arm-static "$rootfs/usr/bin/qemu-arm-static"
-
 	# save
 	tar -z -f rootfs.tar.gz --numeric-owner -C "$rootfs" -c .
 	[[ "$STDOUT" ]] && cat rootfs.tar.gz
@@ -71,7 +69,6 @@ main() {
 			e) REPO_EXTRA=1;;
 			t) TIMEZONE="$OPTARG";;
 			c) ADD_APK_SCRIPT=1;;
-            #q) ADD_QEMU_BINARY=1;;
 			p) PACKAGES="$OPTARG";;
 			b) ADD_BASELAYOUT=1;;
 			d) DISABLE_ROOT_PASSWD=1;;

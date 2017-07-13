@@ -14,6 +14,7 @@ build() {
 		local version_dir
 		version_dir="$(dirname "$file")"
 		: "${TAGS:?}" "${BUILD_OPTIONS:?}" "${RELEASE:?}"
+
 		docker run -e "TRACE=$TRACE" --rm "$BUILDER_IMAGE" "${BUILD_OPTIONS[@]}" \
 			> "$version_dir/rootfs.tar.gz"
 

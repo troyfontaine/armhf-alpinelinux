@@ -15,5 +15,5 @@ RUN /apk-install bash tzdata
 
 RUN [ "cross-build-end" ]
 
-ENTRYPOINT [ "/usr/bin/qemu-arm-static", "/usr/bin/env", "QEMU_EXECVE=1" ]
-CMD [ "/mkimage-alpine.bash" ]
+#ENTRYPOINT [ "/usr/bin/qemu-arm-static", "/usr/bin/env", "QEMU_EXECVE=1" ]
+ENTRYPOINT [ "/mkimage-alpine.bash" ]
