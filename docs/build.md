@@ -25,7 +25,7 @@ $ ./build
 Pass version files to the `build` script to build specific versions:
 
 ```console
-$ ./build version/library-3.2/options versions/gliderlabs-3.2/options
+$ ./build version/library-3.2/options versions/stock-3.2/options
 ```
 
 With `parallel` available you can speed up building a bit:
@@ -33,17 +33,6 @@ With `parallel` available you can speed up building a bit:
 ```console
 $ parallel -m ./build ::: versions/**/options
 ```
-
-## Differences
-
-As we maintain the [official Alpine Linux image in the Docker Library][library], we have specific `options` files for library versions. These contain options that may differ slightly from the `gliderlabs/alpine` image. Compare the `BUILD_OPTIONS` variable to see differences between versions.
-
-The `gliderlabs/alpine` has these additional features:
-
-* Alpine package mirror CDN sponsored by [Fastly][fastly] for speedy package installation all over the globe.
-* An `apk-install` convenience script to update the index, add packages, and then remove the cache.
-
-This should help with your image decision. If features of the `gliderlabs/alpine` image are not of importance to you and you value closest to upstream, then stick with `alpine`. If you want to use additional features we add to the image, then you would use `gliderlabs/alpine`.
 
 ## Testing
 
