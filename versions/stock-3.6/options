@@ -1,0 +1,6 @@
+export RELEASE="3.6"
+export DOWNLOAD='http://dl-cdn.alpinelinux.org/alpine/v3.6/releases/armhf/alpine-minirootfs-3.6.2-armhf.tar.gz'
+export MIRROR="http://nl.alpinelinux.org/alpine/"
+export PACKAGES="bash,tzdata"
+export TAGS=(troyfontaine/armhf-alpinelinux:latest troyfontaine/armhf-alpinelinux:3.6)
+export PUSH_IMAGE="false"

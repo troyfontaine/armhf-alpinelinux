@@ -3,33 +3,22 @@
 build() {
 	declare build_files="${*:-versions/**/options}"
 
-    [[ "$BUILD_IMAGE" ]] || {
-		BUILD_IMAGE="alpine-build"
-		docker build -t "$BUILD_IMAGE" builder/basebuilder
-	}
-
-	[[ "$BUILDER_IMAGE" ]] || {
-		BUILDER_IMAGE="alpine-builder"
-		docker build -t "$BUILDER_IMAGE" builder
-	}
-
 	for file in $build_files; do
-		( # shellcheck source=versions/stock-3.3/options
+        ( # shellcheck source=versions/stock-VV/options
 		source "$file"
 		local version_dir
 		version_dir="$(dirname "$file")"
-		: "${TAGS:?}" "${BUILD_OPTIONS:?}" "${RELEASE:?}"
-
-		docker run -e "TRACE=$TRACE" --rm "$BUILDER_IMAGE" "${BUILD_OPTIONS[@]}" \
-			> "$version_dir/rootfs.tar.gz"
+		: "${TAGS:?}" "${RELEASE:?}" "${DOWNLOAD:?}" "${PACKAGES}"
 
 		for tag in "${TAGS[@]}"; do
 			docker build -t "$tag" \
 			--build-arg ALPINE_VERSION=${RELEASE} \
+            --build-arg ALPINE_DOWNLOAD=${DOWNLOAD} \
+            --build-arg ALPINE_PACKAGES=${PACKAGES} \
 			--build-arg VCS_REF=`git rev-parse --short HEAD` \
 			--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-			--build-arg VERSION=`date -u +"%Y.%m.%d.%H:%MZ"` \
-			"$version_dir"
+			--build-arg VERSION=`date -u +"%Y.%m.%d.%H:%MZ"` .
+
 			if [[ "$CIRCLE_BUILD_NUM" ]]; then
 				{
 					mkdir -p images \
@@ -41,28 +30,6 @@ build() {
 			fi
 		done )
 	done
-}
-
-commit() {
-	[[ "$CIRCLE_BRANCH" == "release" ]] || return 0
-
-	declare rootfs_files="versions/**/rootfs.tar.gz"
-	local build_num="${CIRCLE_BUILD_NUM:-nobuild}"
-	local current_branch
-	current_branch=$(git rev-parse --abbrev-ref HEAD)
-	: "${current_branch:?}"
-
-	for file in $rootfs_files; do
-		local release version_dir
-		release="$(basename "$(dirname "$file")")"
-		version_dir="$(dirname "$file")"
-		: "${release:?}" "${version_dir:?}"
-		git checkout -B "rootfs/$release" "$current_branch"
-		git add -f -- "$file"
-		git commit -m "release image version $release for build $build_num"
-	done
-	[[ "$NO_PUSH" ]] || git push -f origin 'refs/heads/rootfs/*'
-	git checkout "$current_branch"
 }
 
 run_tests() {
@@ -95,29 +62,12 @@ push() {
 	done
 }
 
-library() {
-	for file in versions/library-*/options; do
-		# shellcheck source=versions/library-3.2/options
-		source "$file"
-		local refs
-		refs="$(git ls-remote --exit-code --heads origin rootfs/library-${RELEASE#v})"
-		: "${refs:?}"
-		for tag in "${TAGS[@]}"; do
-			echo "${tag#*:}:" \
-				"git://github.com/troyfontaine/armhf-alpinelinux@${refs:0:40}" \
-				"versions/library-${RELEASE#v}"
-		done
-	done
-}
-
 main() {
 	set -eo pipefail; [[ "$TRACE" ]] && set -x
 	declare cmd="$1"
 	case "$cmd" in
 		test)	shift;	run_tests "$@";;
-		commit)	shift;	commit "$@";;
 		push)	shift;	push "$@";;
-		library) shift; library;;
 		*)		build "$@";;
 	esac
 }

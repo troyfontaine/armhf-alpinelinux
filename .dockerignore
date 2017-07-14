@@ -1,0 +1,9 @@
+docs
+test
+versions
+.gitignore
+.git/*
+circle.yml
+LICENSE
+logo.png
+README.md
