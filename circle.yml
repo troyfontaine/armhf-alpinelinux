@@ -3,4 +3,4 @@ jobs:
     machine:
       image: circleci/classic:edge
   steps:
-    - ./build
+    - run: ./build
