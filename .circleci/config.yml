@@ -3,7 +3,8 @@ jobs:
   build:
     machine:
       - image: circleci/classic:edge
-    parallelism: 1
+
+    parallelism: 2
     branches:
       ignore:
 
@@ -13,4 +14,3 @@ jobs:
       - run:
           name: Run build script
           command: ./build
-          working_directory: ~/
