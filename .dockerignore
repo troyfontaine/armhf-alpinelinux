@@ -3,7 +3,7 @@ test
 versions
 .gitignore
 .git/*
-circle.yml
+.circleci
 LICENSE
 logo.png
 README.md

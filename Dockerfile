@@ -40,8 +40,6 @@ RUN [ "/usr/bin/qemu-arm-static", "/bin/sh", "-c", "mv /bin/sh /bin/sh.real; ln 
 
 RUN [ "cross-build-start" ]
 
-RUN /prep.sh $ALPINE_PACKAGES
-
-#RUN apk update && apk add --no-cache tzdata alpine-baselayout alpine-keys apk-tools libc-utils
+RUN /prep.sh $ALPINE_PACKAGES && rm /prep.sh
 
 RUN [ "cross-build-end" ]

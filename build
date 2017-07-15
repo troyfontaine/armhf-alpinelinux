@@ -36,7 +36,7 @@ run_tests() {
 	declare build_files="${*:-versions/**/options}"
 	declare -a test_files
 	for file in $build_files; do
-		# shellcheck source=versions/stock-3.3/options
+		# shellcheck source=versions/stock-XX/options
 		source "$file"
 		local tag
 		tag="${TAGS[0]}" tag="${tag//:/-}" tag="${tag//\//_}"

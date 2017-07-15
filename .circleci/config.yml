@@ -11,6 +11,13 @@ jobs:
     steps:
       - checkout
 
+      - run: |
+        if [[ ! -e ~/deps/bats_v0.4.0.tar.gz ]]; then mkdir -p ~/deps; \
+        curl -sSL -o ~/deps/bats_v0.4.0.tar.gz \
+        https://github.com/sstephenson/bats/archive/v0.4.0.tar.gz; fi && \
+        tar -xf ~/deps/bats_v0.4.0.tar.gz && sudo bats-0.4.0/install.sh \
+        /usr/local
+
       - run:
           name: Run build script
-          command: ./build
+          command: ./build test
