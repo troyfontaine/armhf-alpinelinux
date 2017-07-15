@@ -5,7 +5,7 @@ jobs:
       - image: circleci/classic:edge
     parallelism: 1
 
-    steps:
+    build:
       - run: command: ls
       - run:
           name: Run build script
