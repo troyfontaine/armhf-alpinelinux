@@ -1,8 +1,8 @@
 version: 2
 jobs:
   build:
-    machine:
-      - image: circleci/classic:edge
+    #machine:
+    # - image: circleci/classic:edge
 
     parallelism: 2
     branches:
