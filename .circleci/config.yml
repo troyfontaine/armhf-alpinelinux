@@ -6,7 +6,6 @@ jobs:
     parallelism: 1
 
     steps:
-      - run: echo 127.0.0.1 circlehost | tee -a /etc/hosts
       - run: command: ls
       - run:
           name: Run build script
