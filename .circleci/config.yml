@@ -3,6 +3,7 @@ jobs:
   build:
     machine:
       - image: circleci/classic:edge
+    parallelism: 2
 
     steps:
       - checkout
