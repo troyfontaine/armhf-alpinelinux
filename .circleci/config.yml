@@ -5,9 +5,15 @@ jobs:
       - image: circleci/classic:edge
     parallelism: 1
 
-    build:
-      - run: command: ls
+    steps:
+      - checkout
       - run:
           name: Run build script
           command: ./build
           working_directory: ~/
+
+workflows:
+  version: 2
+    test:
+      jobs:
+        - build
