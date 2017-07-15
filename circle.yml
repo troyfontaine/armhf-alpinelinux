@@ -2,6 +2,9 @@ jobs:
   build:
     machine:
       image: circleci/classic:edge
+      working_directory: ~/
       steps:
         - checkout
-        - run: ./build
+        - run:
+            name: Run build script
+            command: ./build
