@@ -2,5 +2,5 @@ jobs:
   build:
     machine:
       image: circleci/classic:edge
-  steps:
-    - run: ./build
+      steps:
+        - run: ./build
