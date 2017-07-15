@@ -20,4 +20,8 @@ jobs:
 
       - run:
           name: Run build script
+          command: ./build
+
+      - run:
+          name: Run tests
           command: ./build test
