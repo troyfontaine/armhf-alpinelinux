@@ -3,12 +3,8 @@
 packages=$(echo "$@" | tr '[,]' ' ')
 
 # Install packages
-echo "Updating APK repositories list"
-apk update
-
-# Install new packages
-echo "Installing packages..."
-apk add --no-cache $packages
+echo "Updating APK repos and install packages"
+apk --update add --no-cache $packages
 
 # Upgrade packages
 echo "Upgrading installed packages"

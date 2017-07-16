@@ -15,7 +15,7 @@ ARG VCS_REF
 ARG VERSION
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
-    org.label-schema.docker.dockerfile="/versions/stock-$ALPINE_VERSION/Dockerfile" \
+    org.label-schema.docker.dockerfile="/Dockerfile" \
     org.label-schema.license="BSD" \
     org.label-schema.name="armhf-alpinelinux" \
     org.label-schema.url="https://armhf-alpinelinux.troyfontaine.com" \

@@ -19,7 +19,7 @@ Docker images today are big. Usually much larger than they need to be. There are
 
 ```
 REPOSITORY          				TAG           IMAGE ID          VIRTUAL SIZE
-troyfontaine/armhf-alpinelinux   	latest        72b80f01d847      6.83 MB
+troyfontaine/armhf-alpinelinux   	latest        78ccb6f52e56      19 MB
 debian              				latest        4d6ce913b130      84.98 MB
 ubuntu              				latest        b39b81afc8ca      188.3 MB
 centos              				latest        8efe422e6104      210 MB
