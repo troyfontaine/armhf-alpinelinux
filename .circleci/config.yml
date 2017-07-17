@@ -17,6 +17,7 @@ jobs:
           https://github.com/sstephenson/bats/archive/v0.4.0.tar.gz; fi && \
           tar -xf ~/deps/bats_v0.4.0.tar.gz && sudo bats-0.4.0/install.sh \
           /usr/local
+        save_cache: ~/deps/
 
       - run:
           name: Run build script
@@ -25,3 +26,5 @@ jobs:
       - run:
           name: Run tests
           command: ./build test
+          environment:
+            - files: "versions/**/options"
