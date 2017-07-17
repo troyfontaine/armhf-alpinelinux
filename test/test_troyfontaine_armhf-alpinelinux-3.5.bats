@@ -19,7 +19,7 @@ setup() {
   [ "$output" = "UTC" ]
 }
 
-@test "apk-install script should be missing" {
+@test "prep.sh script should be missing" {
   run docker container run --rm troyfontaine/armhf-alpinelinux:3.5 which prep.sh
   [ $status -eq 1 ]
 }
