@@ -18,8 +18,9 @@ jobs:
           tar -xf ~/deps/bats_v0.4.0.tar.gz && sudo bats-0.4.0/install.sh \
           /usr/local
 
-      - save_cache: 
-          paths: ~/deps/
+#      - save_cache:
+#          key: dependencies
+#          paths: ~/deps/
 
       - run:
           name: Run build script
