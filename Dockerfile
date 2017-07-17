@@ -43,3 +43,7 @@ RUN [ "cross-build-start" ]
 RUN /prep.sh $ALPINE_PACKAGES && rm /prep.sh
 
 RUN [ "cross-build-end" ]
+
+ENTRYPOINT [ "/usr/bin/qemu-arm-static", "/usr/bin/env", "QEMU_EXECVE=1" ]
+
+CMD [ "/bin/bash" ]
