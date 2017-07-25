@@ -1,4 +1,10 @@
 # Build base image
+from scratch as builder
+ARG ALPINE_DOWNLOAD
+ADD $ALPINE_DOWNLOAD /
+
+RUN apk --update add tzinfo
+
 FROM scratch
 
 ARG ALPINE_DOWNLOAD
@@ -24,7 +30,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
     com.troyfontaine.alpine-version=$ALPINE_VERSION \
     maintainer="Troy Fontaine"
 
-COPY localtime /etc/localtime
+COPY --from=builder /usr/share/zoneinfo/UTC /etc/localtime
 
 COPY shadow /etc/shadow
 
