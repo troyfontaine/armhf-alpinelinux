@@ -3,7 +3,6 @@
 build() {
     build_amd64
     build_arm
-    build_arm_thin
 }
 
 build_amd64() {
