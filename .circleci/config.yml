@@ -18,10 +18,6 @@ jobs:
           tar -xf ~/deps/bats_v0.4.0.tar.gz && sudo bats-0.4.0/install.sh \
           /usr/local
 
-#      - save_cache:
-#          key: dependencies
-#          paths: ~/deps/
-
       - run:
           name: Run build script
           command: ./build
@@ -31,3 +27,29 @@ jobs:
           command: ./build test
           environment:
             - files: "versions/**/options"
+
+      - run:
+          name: Clear Docker images
+          command: docker rmi $(docker images -f dangling=true -q)
+
+      - run:
+          name: Build Release images
+          command: ./build release
+
+      - run:
+          name: Push ARM images to Dockerhub
+          command: docker push troyfontaine/armhf_min-alpinelinux
+
+      - run:
+          name: Push x86_64 images to Dockerhub
+          command: docker push troyfontaine/x86_64-alpinelinux
+
+      - run: |
+          if [[ ! -e ~/deps/manifest-tool-linux-amd64 ]]; then mkdir -p ~/deps; \
+          curl -sSL -o ~/deps/manifest-tool-linux-amd64 \
+          https://github.com/estesp/manifest-tool/releases/download/v0.6.0/manifest-tool-linux-amd64; fi && \
+          chmod +x ~/deps/manifest-tool-linux-amd64
+
+      - run:
+          name: Create multi-architecture image
+          command: manifest-tool-linux-amd64 --username $DOCKER_USER --password $DOCKER_PASSWORD push from-spec ~/alpine-multi.yml

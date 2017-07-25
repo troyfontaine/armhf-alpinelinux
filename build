@@ -5,6 +5,11 @@ build() {
     build_arm
 }
 
+build_release() {
+    build_amd64
+    build_arm_release
+}
+
 build_amd64() {
 	declare build_files="${*:-x86_64/**/options}"
 
@@ -60,6 +65,40 @@ build_arm() {
 		--build-arg VCS_REF=`git rev-parse --short HEAD` \
 		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 		--build-arg VERSION=`date -u +"%Y.%m.%d.%H:%MZ"` armhf/
+
+		if [[ "$CIRCLE_BUILD_NUM" ]]; then
+			{
+				mkdir -p images \
+				&& docker tag -f "$tag" "${tag}-${CIRCLE_BUILD_NUM}" \
+				&& docker save "${tag}-${CIRCLE_BUILD_NUM}" \
+					| gzip -c > "images/${tag//\//_}-${CIRCLE_BUILD_NUM}.tar.gz" \
+				&& docker rmi "${tag}-${CIRCLE_BUILD_NUM}"
+			} || true
+		fi )
+	done
+}
+
+build_arm_release() {
+	declare arm_build_files="${*:-armhf_release/**/options}"
+
+	for file in $arm_build_files; do
+        ( # shellcheck source=armhf_release/stock-VV/options
+		source "$file"
+		local version_dir
+		version_dir="$(dirname "$file")"
+		: "${TAGS:?}" "${RELEASE:?}" "${DOWNLOAD:?}" "${PACKAGES}"
+
+		for tag in "${TAGS[@]}"; do
+            mytags="-t $tag $mytags"
+		done
+
+		docker build $mytags \
+		--build-arg ALPINE_VERSION=${RELEASE} \
+        --build-arg ALPINE_DOWNLOAD=${DOWNLOAD} \
+        --build-arg ALPINE_PACKAGES=${PACKAGES} \
+		--build-arg VCS_REF=`git rev-parse --short HEAD` \
+		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+		--build-arg VERSION=`date -u +"%Y.%m.%d.%H:%MZ"` armhf_release/
 
 		if [[ "$CIRCLE_BUILD_NUM" ]]; then
 			{
@@ -165,6 +204,7 @@ main() {
 		push)	shift;	push "$@";;
         build_arm)  build_arm;;
         build_arm_thin)  build_arm_thin;;
+        release)  build_release;;
         build_amd64)   build_amd64;;
 		*)		build "$@";;
 	esac
