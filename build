@@ -10,7 +10,6 @@ build_release() {
 }
 
 build_amd64() {
-    cp resources/localtime ./x86_64/
     cp resources/shadow ./x86_64/
 	declare build_files="${*:-x86_64/**/options}"
 
@@ -33,7 +32,6 @@ build_amd64() {
 		--build-arg VERSION=`date -u +"%Y.%m.%d.%H:%MZ"` x86_64/
         )
 	done
-    rm ./x86_64/localtime
     rm ./x86_64/shadow
 }
 
