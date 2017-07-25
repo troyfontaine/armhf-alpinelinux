@@ -10,6 +10,7 @@ build_release() {
 }
 
 build_amd64() {
+    cp ./prep.sh ./x86_64/
 	declare build_files="${*:-x86_64/**/options}"
 
 	for file in $build_files; do
@@ -41,9 +42,11 @@ build_amd64() {
 			} || true
 		fi )
 	done
+    rm ./x86_64/prep.sh
 }
 
 build_arm() {
+    cp ./prep.sh ./armhf/
     cp -r ./qemu ./armhf/
 	declare arm_build_files="${*:-armhf/**/options}"
 
@@ -68,9 +71,11 @@ build_arm() {
         )
 	done
     rm -rf ./armhf/qemu
+    rm ./armhf/prep.sh
 }
 
 build_arm_release() {
+    cp ./prep.sh ./armhf_release/
     cp -r ./qemu ./armhf_release/
 	declare arm_build_files="${*:-armhf_release/**/options}"
 
@@ -104,9 +109,11 @@ build_arm_release() {
 		fi )
 	done
     rm -rf ./armhf_release/qemu
+    rm ./armhf_release/prep.sh
 }
 
 build_arm_thin() {
+    cp ./prep.sh ./armhf_min/
 	declare arm_build_files="${*:-armhf_min/**/options}"
 
 	for file in $arm_build_files; do
@@ -138,6 +145,7 @@ build_arm_thin() {
 			} || true
 		fi )
 	done
+    rm ./armhf_min/prep.sh
 }
 
 run_tests() {

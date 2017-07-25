@@ -36,10 +36,7 @@ jobs:
 
       - run:
           name: Clear Docker images
-          command: docker rmi troyfontaine/armhf-alpinelinux:3.6 \
-           troyfontaine/armhf-alpinelinux:latest \
-           troyfontaine/armhf-alpinelinux:3.5 \
-           troyfontaine/armhf-alpinelinux:edge
+          command: docker rmi troyfontaine/armhf-alpinelinux:3.6            troyfontaine/armhf-alpinelinux:latest            troyfontaine/armhf-alpinelinux:3.5            troyfontaine/armhf-alpinelinux:edge
 
       - run:
           name: Build Release images
