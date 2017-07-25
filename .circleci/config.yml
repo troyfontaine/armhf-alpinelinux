@@ -30,7 +30,14 @@ jobs:
 
       - run:
           name: Clear Docker images
-          command: docker rmi $(docker images -f dangling=true -q)
+          command: docker rmi troyfontaine/armhf-alpinelinux:3.6 \
+            troyfontaine/armhf-alpinelinux:latest \
+            troyfontaine/armhf-alpinelinux:3.5 \
+            troyfontaine/armhf-alpinelinux:edge \
+            troyfontaine/x86_64-alpinelinux:3.6 \
+            troyfontaine/x86_64-alpinelinux:latest \
+            troyfontaine/x86_64-alpinelinux:3.5 \
+            troyfontaine/x86_64-alpinelinux: edge
 
       - run:
           name: Build Release images
