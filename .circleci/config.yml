@@ -43,6 +43,10 @@ jobs:
           command: ./build release
 
       - run:
+          name: Login to Docker Hub
+          command: docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - run:
           name: Push ARM images to Dockerhub
           command: docker push troyfontaine/armhf_min-alpinelinux
 
