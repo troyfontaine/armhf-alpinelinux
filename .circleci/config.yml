@@ -44,7 +44,7 @@ jobs:
 
       - run:
           name: Push ARMHF with QEMU images to Dockerhub
-          command docker push troyfontaine/armhf-alpinelinux
+          command: docker push troyfontaine/armhf-alpinelinux
 
       - run:
           name: Push ARM Multi-architecture compatible images to Dockerhub
