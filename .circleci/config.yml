@@ -44,7 +44,7 @@ jobs:
 
       - run:
           name: Login to Docker Hub
-          command: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+          command: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD docker.io
 
       - run:
           name: Push ARM images to Dockerhub
