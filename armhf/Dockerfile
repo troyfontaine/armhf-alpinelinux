@@ -39,4 +39,4 @@ ONBUILD RUN apk upgrade --available
 
 ENTRYPOINT [ "/usr/bin/qemu-arm-static", "/usr/bin/env", "QEMU_EXECVE=1" ]
 
-CMD [ "/bin/bash" ]
+CMD [ "/bin/sh" ]
