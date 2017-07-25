@@ -56,4 +56,4 @@ jobs:
 
       - run:
           name: Create multi-architecture image
-          command: manifest-tool --username $DOCKER_USER --password $DOCKER_PASSWORD push from-spec ~/alpine-multi.yml
+          command: manifest-tool --username $DOCKER_USER --password $DOCKER_PASSWORD push from-spec alpine-multi.yml
