@@ -6,7 +6,7 @@ ARG ALPINE_DOWNLOAD
 ADD $ALPINE_DOWNLOAD /
 
 # Customize the image with QEMU support
-FROM builder
+FROM builder as cibuilder
 
 ARG ALPINE_VERSION
 ARG ALPINE_PACKAGES
@@ -44,8 +44,11 @@ RUN /prep.sh $ALPINE_PACKAGES && rm /prep.sh
 
 RUN [ "cross-build-end" ]
 
-ENTRYPOINT [ "/usr/bin/qemu-arm-static", "/usr/bin/env", "QEMU_EXECVE=1" ]
-
+# Remove QEMU support to allow for use in multi-architecture images
 RUN [ "/usr/bin/qemu-arm-static", "/bin/sh", "-c", "mv /bin/sh.real /bin/sh; rm /usr/bin/cross-build-start; rm /usr/bin/cross-build-end; rm /usr/bin/resin-xbuild; rm /usr/bin/qemu-arm-static" ]
+
+FROM cibuilder
+
+COPY --from=builder / .
 
 CMD [ "/bin/bash" ]
