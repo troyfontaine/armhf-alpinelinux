@@ -6,7 +6,6 @@ build() {
 }
 
 build_release() {
-    build_amd64
     build_arm_release
 }
 
@@ -66,16 +65,7 @@ build_arm() {
 		--build-arg VCS_REF=`git rev-parse --short HEAD` \
 		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 		--build-arg VERSION=`date -u +"%Y.%m.%d.%H:%MZ"` armhf/
-
-		if [[ "$CIRCLE_BUILD_NUM" ]]; then
-			{
-				mkdir -p images \
-				&& docker tag -f "$tag" "${tag}-${CIRCLE_BUILD_NUM}" \
-				&& docker save "${tag}-${CIRCLE_BUILD_NUM}" \
-					| gzip -c > "images/${tag//\//_}-${CIRCLE_BUILD_NUM}.tar.gz" \
-				&& docker rmi "${tag}-${CIRCLE_BUILD_NUM}"
-			} || true
-		fi )
+        )
 	done
     rm -rf ./armhf/qemu
 }

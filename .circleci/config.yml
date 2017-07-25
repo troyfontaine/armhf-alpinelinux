@@ -22,7 +22,7 @@ jobs:
           if [[ ! -e ~/deps/manifest-tool-linux-amd64 ]]; then mkdir -p ~/deps; \
           curl -sSL -o ~/deps/manifest-tool-linux-amd64 \
           https://github.com/estesp/manifest-tool/releases/download/v0.6.0/manifest-tool-linux-amd64; fi && \
-          chmod +x ~/deps/manifest-tool-linux-amd64  && cp ~/deps/manifest-tool-linux-amd64 /usr/bin/manifest-tool
+          chmod +x ~/deps/manifest-tool-linux-amd64  && sudo cp ~/deps/manifest-tool-linux-amd64 /usr/bin/manifest-tool
 
       - run:
           name: Run build script
@@ -36,7 +36,10 @@ jobs:
 
       - run:
           name: Clear Docker images
-          command: /bin/bash -c 'docker rmi troyfontaine/armhf-alpinelinux:3.6 troyfontaine/armhf-alpinelinux:latest troyfontaine/armhf-alpinelinux:3.5  troyfontaine/armhf-alpinelinux:edge troyfontaine/x86_64-alpinelinux:3.6 troyfontaine/x86_64-alpinelinux:latest troyfontaine/x86_64-alpinelinux:3.5 troyfontaine/x86_64-alpinelinux:edge'
+          command: docker rmi troyfontaine/armhf-alpinelinux:3.6 \
+          troyfontaine/armhf-alpinelinux:latest \
+          troyfontaine/armhf-alpinelinux:3.5 \
+          troyfontaine/armhf-alpinelinux:edge
 
       - run:
           name: Build Release images
