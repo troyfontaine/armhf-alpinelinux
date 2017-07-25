@@ -46,7 +46,7 @@ build_arm() {
 		source "$file"
 		local version_dir
 		version_dir="$(dirname "$file")"
-		: "${TAGS:?}" "${RELEASE:?}" "${DOWNLOAD:?}" "${PACKAGES}"
+		: "${TAGS:?}" "${RELEASE:?}" "${DOWNLOAD:?}"
 
 		for tag in "${TAGS[@]}"; do
             mytags="-t $tag $mytags"
@@ -55,7 +55,6 @@ build_arm() {
 		docker build $mytags \
 		--build-arg ALPINE_VERSION=${RELEASE} \
         --build-arg ALPINE_DOWNLOAD=${DOWNLOAD} \
-        --build-arg ALPINE_PACKAGES=${PACKAGES} \
 		--build-arg VCS_REF=`git rev-parse --short HEAD` \
 		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 		--build-arg VERSION=`date -u +"%Y.%m.%d.%H:%MZ"` armhf/
@@ -76,7 +75,7 @@ build_arm_release() {
 		source "$file"
 		local version_dir
 		version_dir="$(dirname "$file")"
-		: "${TAGS:?}" "${RELEASE:?}" "${DOWNLOAD:?}" "${PACKAGES}"
+		: "${TAGS:?}" "${RELEASE:?}" "${DOWNLOAD:?}"
 
 		for tag in "${TAGS[@]}"; do
             mytags="-t $tag $mytags"
@@ -85,14 +84,13 @@ build_arm_release() {
 		docker build $mytags \
 		--build-arg ALPINE_VERSION=${RELEASE} \
         --build-arg ALPINE_DOWNLOAD=${DOWNLOAD} \
-        --build-arg ALPINE_PACKAGES=${PACKAGES} \
 		--build-arg VCS_REF=`git rev-parse --short HEAD` \
 		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 		--build-arg VERSION=`date -u +"%Y.%m.%d.%H:%MZ"` armhf_release/
         )
 	done
-    rm ./armhf/localtime
-    rm ./armhf/shadow
+    rm ./armhf_release/localtime
+    rm ./armhf_release/shadow
 }
 
 run_tests() {
