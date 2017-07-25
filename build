@@ -45,6 +45,7 @@ build_amd64() {
 }
 
 build_arm() {
+    cp -r ./qemu ./armhf/
 	declare arm_build_files="${*:-armhf/**/options}"
 
 	for file in $arm_build_files; do
@@ -76,9 +77,11 @@ build_arm() {
 			} || true
 		fi )
 	done
+    rm -rf ./armhf/qemu
 }
 
 build_arm_release() {
+    cp -r ./qemu ./armhf_release/
 	declare arm_build_files="${*:-armhf_release/**/options}"
 
 	for file in $arm_build_files; do
@@ -110,6 +113,7 @@ build_arm_release() {
 			} || true
 		fi )
 	done
+    rm -rf ./armhf_release/qemu
 }
 
 build_arm_thin() {

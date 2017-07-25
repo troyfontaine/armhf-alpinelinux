@@ -18,6 +18,12 @@ jobs:
           tar -xf ~/deps/bats_v0.4.0.tar.gz && sudo bats-0.4.0/install.sh \
           /usr/local
 
+      - run: |
+          if [[ ! -e ~/deps/manifest-tool-linux-amd64 ]]; then mkdir -p ~/deps; \
+          curl -sSL -o ~/deps/manifest-tool-linux-amd64 \
+          https://github.com/estesp/manifest-tool/releases/download/v0.6.0/manifest-tool-linux-amd64; fi && \
+          chmod +x ~/deps/manifest-tool-linux-amd64
+
       - run:
           name: Run build script
           command: ./build
@@ -43,12 +49,6 @@ jobs:
       - run:
           name: Push x86_64 images to Dockerhub
           command: docker push troyfontaine/x86_64-alpinelinux
-
-      - run: |
-          if [[ ! -e ~/deps/manifest-tool-linux-amd64 ]]; then mkdir -p ~/deps; \
-          curl -sSL -o ~/deps/manifest-tool-linux-amd64 \
-          https://github.com/estesp/manifest-tool/releases/download/v0.6.0/manifest-tool-linux-amd64; fi && \
-          chmod +x ~/deps/manifest-tool-linux-amd64
 
       - run:
           name: Create multi-architecture image
