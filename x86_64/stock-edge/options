@@ -1,0 +1,5 @@
+export RELEASE="edge"
+export DOWNLOAD='http://dl-cdn.alpinelinux.org/alpine/edge/releases/x86_64/alpine-minirootfs-3.6.0-x86_64.tar.gz'
+export PACKAGES="bash,tzdata"
+export TAGS=(troyfontaine/x86_64-alpinelinux:edge)
+export PUSH_IMAGE="false"

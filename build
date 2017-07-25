@@ -1,42 +1,136 @@
 #!/usr/bin/env bash
 
 build() {
-	declare build_files="${*:-versions/**/options}"
+    build_amd64
+    build_arm
+    build_arm_thin
+}
+
+build_amd64() {
+	declare build_files="${*:-x86_64/**/options}"
 
 	for file in $build_files; do
-        ( # shellcheck source=versions/stock-VV/options
+        ( # shellcheck source=x86_64/stock-VV/options
 		source "$file"
 		local version_dir
 		version_dir="$(dirname "$file")"
 		: "${TAGS:?}" "${RELEASE:?}" "${DOWNLOAD:?}" "${PACKAGES}"
 
 		for tag in "${TAGS[@]}"; do
-			docker build -t "$tag" \
-			--build-arg ALPINE_VERSION=${RELEASE} \
-            --build-arg ALPINE_DOWNLOAD=${DOWNLOAD} \
-            --build-arg ALPINE_PACKAGES=${PACKAGES} \
-			--build-arg VCS_REF=`git rev-parse --short HEAD` \
-			--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-			--build-arg VERSION=`date -u +"%Y.%m.%d.%H:%MZ"` .
+            mytags="-t $tag $mytags"
+		done
 
-			if [[ "$CIRCLE_BUILD_NUM" ]]; then
-				{
-					mkdir -p images \
-					&& docker tag -f "$tag" "${tag}-${CIRCLE_BUILD_NUM}" \
-					&& docker save "${tag}-${CIRCLE_BUILD_NUM}" \
-						| gzip -c > "images/${tag//\//_}-${CIRCLE_BUILD_NUM}.tar.gz" \
-					&& docker rmi "${tag}-${CIRCLE_BUILD_NUM}"
-				} || true
-			fi
-		done )
+		docker build $mytags \
+		--build-arg ALPINE_VERSION=${RELEASE} \
+        --build-arg ALPINE_DOWNLOAD=${DOWNLOAD} \
+        --build-arg ALPINE_PACKAGES=${PACKAGES} \
+		--build-arg VCS_REF=`git rev-parse --short HEAD` \
+		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+		--build-arg VERSION=`date -u +"%Y.%m.%d.%H:%MZ"` x86_64/
+
+		if [[ "$CIRCLE_BUILD_NUM" ]]; then
+			{
+				mkdir -p images \
+				&& docker tag -f "$tag" "${tag}-${CIRCLE_BUILD_NUM}" \
+				&& docker save "${tag}-${CIRCLE_BUILD_NUM}" \
+					| gzip -c > "images/${tag//\//_}-${CIRCLE_BUILD_NUM}.tar.gz" \
+				&& docker rmi "${tag}-${CIRCLE_BUILD_NUM}"
+			} || true
+		fi )
+	done
+}
+
+build_arm() {
+	declare arm_build_files="${*:-armhf/**/options}"
+
+	for file in $arm_build_files; do
+        ( # shellcheck source=armhf/stock-VV/options
+		source "$file"
+		local version_dir
+		version_dir="$(dirname "$file")"
+		: "${TAGS:?}" "${RELEASE:?}" "${DOWNLOAD:?}" "${PACKAGES}"
+
+		for tag in "${TAGS[@]}"; do
+            mytags="-t $tag $mytags"
+		done
+
+		docker build $mytags \
+		--build-arg ALPINE_VERSION=${RELEASE} \
+        --build-arg ALPINE_DOWNLOAD=${DOWNLOAD} \
+        --build-arg ALPINE_PACKAGES=${PACKAGES} \
+		--build-arg VCS_REF=`git rev-parse --short HEAD` \
+		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+		--build-arg VERSION=`date -u +"%Y.%m.%d.%H:%MZ"` armhf/
+
+		if [[ "$CIRCLE_BUILD_NUM" ]]; then
+			{
+				mkdir -p images \
+				&& docker tag -f "$tag" "${tag}-${CIRCLE_BUILD_NUM}" \
+				&& docker save "${tag}-${CIRCLE_BUILD_NUM}" \
+					| gzip -c > "images/${tag//\//_}-${CIRCLE_BUILD_NUM}.tar.gz" \
+				&& docker rmi "${tag}-${CIRCLE_BUILD_NUM}"
+			} || true
+		fi )
+	done
+}
+
+build_arm_thin() {
+	declare arm_build_files="${*:-armhf_min/**/options}"
+
+	for file in $arm_build_files; do
+        ( # shellcheck source=armhf_min/stock-VV/options
+		source "$file"
+		local version_dir
+		version_dir="$(dirname "$file")"
+		: "${TAGS:?}" "${RELEASE:?}" "${DOWNLOAD:?}" "${PACKAGES}"
+
+		for tag in "${TAGS[@]}"; do
+            mytags="-t $tag $mytags"
+		done
+
+		docker build $mytags \
+		--build-arg ALPINE_VERSION=${RELEASE} \
+        --build-arg ALPINE_DOWNLOAD=${DOWNLOAD} \
+        --build-arg ALPINE_PACKAGES=${PACKAGES} \
+		--build-arg VCS_REF=`git rev-parse --short HEAD` \
+		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+		--build-arg VERSION=`date -u +"%Y.%m.%d.%H:%MZ"` armhf_min/
+
+		if [[ "$CIRCLE_BUILD_NUM" ]]; then
+			{
+				mkdir -p images \
+				&& docker tag -f "$tag" "${tag}-${CIRCLE_BUILD_NUM}" \
+				&& docker save "${tag}-${CIRCLE_BUILD_NUM}" \
+					| gzip -c > "images/${tag//\//_}-${CIRCLE_BUILD_NUM}.tar.gz" \
+				&& docker rmi "${tag}-${CIRCLE_BUILD_NUM}"
+			} || true
+		fi )
 	done
 }
 
 run_tests() {
-	declare build_files="${*:-versions/**/options}"
+    x86_64_tests
+    armhf_tests
+}
+
+x86_64_tests() {
+	declare build_files="${*:-x86_64/**/options}"
 	declare -a test_files
 	for file in $build_files; do
-		# shellcheck source=versions/stock-XX/options
+		# shellcheck source=x86_64/stock-XX/options
+		source "$file"
+		local tag
+		tag="${TAGS[0]}" tag="${tag//:/-}" tag="${tag//\//_}"
+		test_files+=("test/test_${tag}.bats")
+	done
+	bats "${test_files[@]}"
+}
+
+armhf_tests() {
+	declare build_files="${*:-armhf/**/options}"
+	declare -a test_files
+	for file in $build_files; do
+		# shellcheck source=armhf/stock-XX/options
 		source "$file"
 		local tag
 		tag="${TAGS[0]}" tag="${tag//:/-}" tag="${tag//\//_}"
@@ -67,7 +161,12 @@ main() {
 	declare cmd="$1"
 	case "$cmd" in
 		test)	shift;	run_tests "$@";;
+        test_amd64) shift; x86_64_tests "$@";;
+        test_arm)   shift; armhf_tests "$@";;
 		push)	shift;	push "$@";;
+        build_arm)  build_arm;;
+        build_arm_thin)  build_arm_thin;;
+        build_amd64)   build_amd64;;
 		*)		build "$@";;
 	esac
 }

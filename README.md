@@ -5,9 +5,12 @@
 [![Docker Stars](https://img.shields.io/docker/stars/troyfontaine/armhf-alpinelinux.svg)]()
 [![Docker Pulls](https://img.shields.io/docker/pulls/troyfontaine/armhf-alpinelinux.svg)]()
 
+## TODO
+- Consider removing QEMU support at the end of the automated building process before pushing to Dockerhub via CircleCI (overkill?)
+- Add x86_64 builds
+- Streamline testing
 
-
-A super small Docker image based on [Alpine Linux][alpine]. The image is only 5 MB and has access to a package repository that is much more complete than other BusyBox based images.  Included in this version is a qemu binary that allows the container when created on an ARM device to run on an x86/x86_64
+A super small Docker image based on [Alpine Linux][alpine]. The image is only 19 MB and has access to a package repository that is much more complete than other BusyBox based images.  Included in this version is a qemu binary that allows the container when created on an ARM device to run on an x86/x86_64
 
 ## How to build for ARMHF?
 
@@ -61,7 +64,7 @@ ENTRYPOINT ["mysql"]
 This took 19 seconds to build and yields a 164 MB image. Eww. Start doing this:
 
 ```dockerfile
-FROM troyfontaine/armhf-alpinelinux:3.3
+FROM troyfontaine/armhf-alpinelinux:3.6
 RUN apk add --no-cache mysql-client
 ENTRYPOINT ["mysql"]
 ```
@@ -70,7 +73,7 @@ Only 3 seconds to build and results in a 36 MB image! Hooray!
 
 ## Documentation
 
-This image is well documented. [Check out the documentation at Viewdocs][docs] and the `docs` directory in this repository.
+Check out the `docs` directory in this repository.
 
 ## Contacts
 
@@ -78,16 +81,14 @@ We make reasonable efforts to support our work and are always happy to chat.  Go
 
 ## Inspiration
 
-The motivation for this project and modifications to `mkimage.sh` are highly inspired by Eivind Uggedal (uggedal) and Luis Lavena (luislavena). They have made great strides in getting Alpine Linux running as a Docker container. Check out their [mini-container/base][mini-base] image as well.
+
 
 ## License
 
 The code in this repository, unless otherwise noted, is BSD licensed. See the `LICENSE` file in this repository.
 
-[mini-base]: https://github.com/mini-containers/base
 [alpine-packages]: http://pkgs.alpinelinux.org/
 [alpine-about]: https://www.alpinelinux.org/about/
-[docs]: http://gliderlabs.viewdocs.io/docker-alpine
 [issues]: https://github.com/troyfontaine/armhf-alpinelinux/issues
 [alpine]: http://alpinelinux.org/
 [hub]: https://hub.docker.com/r/troyfontaine/armhf-alpinelinux/
