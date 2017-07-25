@@ -1,0 +1,10 @@
+image: troyfontaine/alpinelinux:edge
+manifests:
+  - image: troyfontaine/x86_64-alpinelinux:edge
+    platform:
+      architecture: amd64
+      os: linux
+  - image: troyfontaine/armhf_min-alpinelinux:edge
+    platform:
+      architecture: arm
+      os: linux

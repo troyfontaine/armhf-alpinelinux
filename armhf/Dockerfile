@@ -1,15 +1,9 @@
-# Build base image
-FROM scratch as builder
+FROM scratch
+
+ENV QEMU_EXECVE 1
 
 ARG ALPINE_DOWNLOAD
-
-ADD $ALPINE_DOWNLOAD /
-
-# Customize the image with QEMU support
-FROM builder
-
 ARG ALPINE_VERSION
-ARG ALPINE_PACKAGES
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
@@ -29,20 +23,19 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
     com.troyfontaine.alpine-version=$ALPINE_VERSION \
     maintainer="Troy Fontaine"
 
-ENV QEMU_EXECVE 1
+ADD $ALPINE_DOWNLOAD /
 
 # Modified version of qemu https://github.com/resin-io/qemu
 # Highly inspired from https://github.com/resin-io-projects/armv7hf-debian-qemu
 COPY qemu/  /usr/bin/
-COPY prep.sh /
 
 RUN [ "/usr/bin/qemu-arm-static", "/bin/sh", "-c", "mv /bin/sh /bin/sh.real; ln -s /bin/sh.real /bin/sh" ]
 
-RUN [ "cross-build-start" ]
+COPY localtime /etc/localtime
 
-RUN /prep.sh $ALPINE_PACKAGES && rm /prep.sh
+COPY shadow /etc/shadow
 
-RUN [ "cross-build-end" ]
+ONBUILD RUN apk upgrade --available
 
 ENTRYPOINT [ "/usr/bin/qemu-arm-static", "/usr/bin/env", "QEMU_EXECVE=1" ]
 

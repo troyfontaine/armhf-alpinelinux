@@ -1,0 +1,10 @@
+image: troyfontaine/alpinelinux:3.5
+manifests:
+  - image: troyfontaine/x86_64-alpinelinux:3.5
+    platform:
+      architecture: amd64
+      os: linux
+  - image: troyfontaine/armhf_min-alpinelinux:3.5
+    platform:
+      architecture: arm
+      os: linux

@@ -10,7 +10,8 @@ build_release() {
 }
 
 build_amd64() {
-    cp prep.sh ./x86_64/
+    cp resources/localtime ./x86_64/
+    cp resources/shadow ./x86_64/
 	declare build_files="${*:-x86_64/**/options}"
 
 	for file in $build_files; do
@@ -18,7 +19,7 @@ build_amd64() {
 		source "$file"
 		local version_dir
 		version_dir="$(dirname "$file")"
-		: "${TAGS:?}" "${RELEASE:?}" "${DOWNLOAD:?}" "${PACKAGES}"
+		: "${TAGS:?}" "${RELEASE:?}" "${DOWNLOAD:?}"
 
 		for tag in "${TAGS[@]}"; do
             mytags="-t $tag $mytags"
@@ -27,26 +28,18 @@ build_amd64() {
 		docker build $mytags \
 		--build-arg ALPINE_VERSION=${RELEASE} \
         --build-arg ALPINE_DOWNLOAD=${DOWNLOAD} \
-        --build-arg ALPINE_PACKAGES=${PACKAGES} \
 		--build-arg VCS_REF=`git rev-parse --short HEAD` \
 		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 		--build-arg VERSION=`date -u +"%Y.%m.%d.%H:%MZ"` x86_64/
-
-		if [[ "$CIRCLE_BUILD_NUM" ]]; then
-			{
-				mkdir -p images \
-				&& docker tag -f "$tag" "${tag}-${CIRCLE_BUILD_NUM}" \
-				&& docker save "${tag}-${CIRCLE_BUILD_NUM}" \
-					| gzip -c > "images/${tag//\//_}-${CIRCLE_BUILD_NUM}.tar.gz" \
-				&& docker rmi "${tag}-${CIRCLE_BUILD_NUM}"
-			} || true
-		fi )
+        )
 	done
-    rm ./x86_64/prep.sh
+    rm ./x86_64/localtime
+    rm ./x86_64/shadow
 }
 
 build_arm() {
-    cp prep.sh ./armhf/
+    cp resources/localtime ./armhf/
+    cp resources/shadow ./armhf/
     cp -r ./qemu ./armhf/
 	declare arm_build_files="${*:-armhf/**/options}"
 
@@ -71,12 +64,13 @@ build_arm() {
         )
 	done
     rm -rf ./armhf/qemu
-    rm ./armhf/prep.sh
+    rm ./armhf/localtime
+    rm ./armhf/shadow
 }
 
 build_arm_release() {
-    cp prep.sh ./armhf_release/
-    cp -r ./qemu ./armhf_release/
+    cp resources/localtime ./armhf_release/
+    cp resources/shadow ./armhf_release/
 	declare arm_build_files="${*:-armhf_release/**/options}"
 
 	for file in $arm_build_files; do
@@ -97,55 +91,10 @@ build_arm_release() {
 		--build-arg VCS_REF=`git rev-parse --short HEAD` \
 		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 		--build-arg VERSION=`date -u +"%Y.%m.%d.%H:%MZ"` armhf_release/
-
-		if [[ "$CIRCLE_BUILD_NUM" ]]; then
-			{
-				mkdir -p images \
-				&& docker tag -f "$tag" "${tag}-${CIRCLE_BUILD_NUM}" \
-				&& docker save "${tag}-${CIRCLE_BUILD_NUM}" \
-					| gzip -c > "images/${tag//\//_}-${CIRCLE_BUILD_NUM}.tar.gz" \
-				&& docker rmi "${tag}-${CIRCLE_BUILD_NUM}"
-			} || true
-		fi )
+        )
 	done
-    rm -rf ./armhf_release/qemu
-    rm ./armhf_release/prep.sh
-}
-
-build_arm_thin() {
-    cp prep.sh ./armhf_min/
-	declare arm_build_files="${*:-armhf_min/**/options}"
-
-	for file in $arm_build_files; do
-        ( # shellcheck source=armhf_min/stock-VV/options
-		source "$file"
-		local version_dir
-		version_dir="$(dirname "$file")"
-		: "${TAGS:?}" "${RELEASE:?}" "${DOWNLOAD:?}" "${PACKAGES}"
-
-		for tag in "${TAGS[@]}"; do
-            mytags="-t $tag $mytags"
-		done
-
-		docker build $mytags \
-		--build-arg ALPINE_VERSION=${RELEASE} \
-        --build-arg ALPINE_DOWNLOAD=${DOWNLOAD} \
-        --build-arg ALPINE_PACKAGES=${PACKAGES} \
-		--build-arg VCS_REF=`git rev-parse --short HEAD` \
-		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-		--build-arg VERSION=`date -u +"%Y.%m.%d.%H:%MZ"` armhf_min/
-
-		if [[ "$CIRCLE_BUILD_NUM" ]]; then
-			{
-				mkdir -p images \
-				&& docker tag -f "$tag" "${tag}-${CIRCLE_BUILD_NUM}" \
-				&& docker save "${tag}-${CIRCLE_BUILD_NUM}" \
-					| gzip -c > "images/${tag//\//_}-${CIRCLE_BUILD_NUM}.tar.gz" \
-				&& docker rmi "${tag}-${CIRCLE_BUILD_NUM}"
-			} || true
-		fi )
-	done
-    rm ./armhf_min/prep.sh
+    rm ./armhf/localtime
+    rm ./armhf/shadow
 }
 
 run_tests() {
@@ -205,7 +154,6 @@ main() {
         test_arm)   shift; armhf_tests "$@";;
 		push)	shift;	push "$@";;
         build_arm)  build_arm;;
-        build_arm_thin)  build_arm_thin;;
         release)  build_release;;
         build_amd64)   build_amd64;;
 		*)		build "$@";;

@@ -1,17 +1,13 @@
 # Build base image
-FROM scratch as builder
+FROM scratch
 
 ARG ALPINE_DOWNLOAD
-
-ADD $ALPINE_DOWNLOAD /
-
-FROM builder
-
 ARG ALPINE_VERSION
-ARG ALPINE_PACKAGES
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
+
+ADD $ALPINE_DOWNLOAD /
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.docker.dockerfile="/Dockerfile" \
@@ -28,8 +24,10 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
     com.troyfontaine.alpine-version=$ALPINE_VERSION \
     maintainer="Troy Fontaine"
 
-COPY prep.sh /
+COPY localtime /etc/localtime
 
-RUN /prep.sh $ALPINE_PACKAGES && rm /prep.sh
+COPY shadow /etc/shadow
+
+ONBUILD RUN apk upgrade --available
 
 CMD [ "/bin/sh" ]

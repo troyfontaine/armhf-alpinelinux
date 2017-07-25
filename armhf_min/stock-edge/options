@@ -1,5 +1,0 @@
-export RELEASE="edge"
-export DOWNLOAD='http://dl-cdn.alpinelinux.org/alpine/edge/releases/armhf/alpine-minirootfs-3.6.0-armhf.tar.gz'
-export PACKAGES="bash,tzdata"
-export TAGS=(troyfontaine/armhf_min-alpinelinux:edge)
-export PUSH_IMAGE="false"
