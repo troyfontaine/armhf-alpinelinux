@@ -3,7 +3,7 @@ from scratch as builder
 ARG ALPINE_DOWNLOAD
 ADD $ALPINE_DOWNLOAD /
 
-RUN apk --update add tzinfo
+RUN apk --update add tzdata
 
 FROM scratch
 
